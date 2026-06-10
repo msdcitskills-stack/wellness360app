@@ -14,7 +14,284 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      appointments: {
+        Row: {
+          created_at: string
+          doctor_id: string
+          fee: number
+          id: string
+          notes: string | null
+          patient_id: string
+          service_id: string
+          slot_end: string
+          slot_id: string
+          slot_start: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          doctor_id: string
+          fee: number
+          id?: string
+          notes?: string | null
+          patient_id: string
+          service_id: string
+          slot_end: string
+          slot_id: string
+          slot_start: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          doctor_id?: string
+          fee?: number
+          id?: string
+          notes?: string | null
+          patient_id?: string
+          service_id?: string
+          slot_end?: string
+          slot_id?: string
+          slot_start?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_slot_id_fkey"
+            columns: ["slot_id"]
+            isOneToOne: false
+            referencedRelation: "availability_slots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      availability_slots: {
+        Row: {
+          created_at: string
+          doctor_id: string
+          id: string
+          is_booked: boolean
+          slot_end: string
+          slot_start: string
+        }
+        Insert: {
+          created_at?: string
+          doctor_id: string
+          id?: string
+          is_booked?: boolean
+          slot_end: string
+          slot_start: string
+        }
+        Update: {
+          created_at?: string
+          doctor_id?: string
+          id?: string
+          is_booked?: boolean
+          slot_end?: string
+          slot_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "availability_slots_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      doctors: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          consultation_fee: number
+          created_at: string
+          experience_years: number
+          full_name: string
+          id: string
+          is_available: boolean
+          qualification: string
+          rating: number
+          reviews_count: number
+          service_id: string
+          specialty: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          consultation_fee: number
+          created_at?: string
+          experience_years?: number
+          full_name: string
+          id?: string
+          is_available?: boolean
+          qualification: string
+          rating?: number
+          reviews_count?: number
+          service_id: string
+          specialty: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          consultation_fee?: number
+          created_at?: string
+          experience_years?: number
+          full_name?: string
+          id?: string
+          is_available?: boolean
+          qualification?: string
+          rating?: number
+          reviews_count?: number
+          service_id?: string
+          specialty?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "doctors_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      faqs: {
+        Row: {
+          answer: string
+          category: string | null
+          id: string
+          is_active: boolean
+          question: string
+          sort_order: number
+        }
+        Insert: {
+          answer: string
+          category?: string | null
+          id?: string
+          is_active?: boolean
+          question: string
+          sort_order?: number
+        }
+        Update: {
+          answer?: string
+          category?: string | null
+          id?: string
+          is_active?: boolean
+          question?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      services: {
+        Row: {
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          is_active: boolean
+          name: string
+          slug: string
+          sort_order: number
+          tagline: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          icon: string
+          id?: string
+          is_active?: boolean
+          name: string
+          slug: string
+          sort_order?: number
+          tagline: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          slug?: string
+          sort_order?: number
+          tagline?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          avatar_url: string | null
+          id: string
+          is_active: boolean
+          patient_name: string
+          patient_role: string | null
+          quote: string
+          rating: number
+          sort_order: number
+        }
+        Insert: {
+          avatar_url?: string | null
+          id?: string
+          is_active?: boolean
+          patient_name: string
+          patient_role?: string | null
+          quote: string
+          rating?: number
+          sort_order?: number
+        }
+        Update: {
+          avatar_url?: string | null
+          id?: string
+          is_active?: boolean
+          patient_name?: string
+          patient_role?: string | null
+          quote?: string
+          rating?: number
+          sort_order?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
